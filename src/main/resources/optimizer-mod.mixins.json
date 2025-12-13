@@ -1,0 +1,20 @@
+{
+    "required": true,
+    "package": "net.hazedf.optimizer.mixin",
+    "compatibilityLevel": "JAVA_21",
+    "mixins": [
+        "MathHelperMixin",
+        "EntityCullingMixin",
+        "MinecraftClientMixin",
+        "InGameHudMixin",
+        "EntityTickMixin",
+        "ExperienceOrbMixin",
+        "MobEntityMixin",
+        "GcMixin",
+        "PingOptimizerMixin",
+        "LowLatencyMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

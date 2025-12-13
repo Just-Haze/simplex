@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "simplex",
+  "version": "${version}",
+  "name": "Simplex",
+  "description": "A Minecraft optimization mod focused on rendering and logic improvements.",
+  "contact": {
+    "homepage": "https://fabricmc.net/"
+  },
+  "license": "CC0-1.0",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["net.hazedf.optimizer.HazedfOptimizerMod"],
+    "modmenu": ["net.hazedf.optimizer.integration.ModMenuIntegration"]
+  },
+  "mixins": ["optimizer-mod.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.16.5",
+    "minecraft": "~1.21",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

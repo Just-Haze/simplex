@@ -1,0 +1,27 @@
+# Gradle
+.gradle/
+build/
+out/
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+
+# Build artifacts and logs
+*.log
+*.txt
+gradle-*.zip
+gradle_dist/
+gradle_dist_new/
+
+# System
+.DS_Store
+Thumbs.db
+
+# Scripts and temporary files
+convert_icon.py
+__pycache__/
+*.pyc
+
+# Modrinth description (kept in source but maybe not needed in final repo structure, keeping for now)
