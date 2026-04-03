@@ -13,11 +13,17 @@ public class MobEntityMixin {
 
     @Inject(method = "tickNewAi", at = @At("HEAD"), cancellable = true)
     public void onTickNewAi(CallbackInfo ci) {
-        if (OptimizerConfig.getInstance().enableDistantAiOptimization) {
+        OptimizerConfig config = OptimizerConfig.getInstance();
+        if (config.enableDistantAiOptimization) {
             MobEntity entity = (MobEntity) (Object) this;
-            PlayerEntity player = entity.getWorld().getClosestPlayer(entity, 128);
+            PlayerEntity player = entity.getWorld().getClosestPlayer(entity, config.distantAiDistance * 2.0);
 
-            if (player == null || entity.squaredDistanceTo(player) > 4096) { // 64 blocks
+            if (entity.age % config.distantAiInterval == 0) {
+                return;
+            }
+
+            double distanceSq = (double) config.distantAiDistance * (double) config.distantAiDistance;
+            if (player == null || entity.squaredDistanceTo(player) > distanceSq) {
                 ci.cancel();
             }
         }

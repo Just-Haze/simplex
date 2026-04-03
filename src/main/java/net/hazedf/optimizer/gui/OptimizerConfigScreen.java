@@ -22,6 +22,13 @@ public class OptimizerConfigScreen extends Screen {
         int y = 40;
         int center = this.width / 2;
 
+        this.addDrawableChild(
+                ButtonWidget.builder(Text.literal("Profile: " + config.profileLabel()), button -> {
+                    config.cycleProfile();
+                    button.setMessage(Text.literal("Profile: " + config.profileLabel()));
+                }).dimensions(center - 100, y, 200, 20).build());
+        y += 24;
+
         // Entity Culling Toggle
         this.addDrawableChild(
                 ButtonWidget.builder(Text.literal("Entity Culling: " + config.enableEntityCulling), button -> {
@@ -43,6 +50,27 @@ public class OptimizerConfigScreen extends Screen {
                 config.entityCullingDistance = (int) (this.value * 512);
                 if (config.entityCullingDistance < 1)
                     config.entityCullingDistance = 1;
+            }
+        });
+        y += 24;
+
+        this.addDrawableChild(
+                ButtonWidget.builder(Text.literal("Adaptive Culling: " + config.enableAdaptiveCulling), button -> {
+                    config.enableAdaptiveCulling = !config.enableAdaptiveCulling;
+                    button.setMessage(Text.literal("Adaptive Culling: " + config.enableAdaptiveCulling));
+                }).dimensions(center - 155, y, 150, 20).build());
+
+        this.addDrawableChild(new SliderWidget(center + 5, y, 150, 20,
+                Text.literal("Target FPS: " + config.adaptiveTargetFps),
+                config.adaptiveTargetFps / 240.0) {
+            @Override
+            protected void updateMessage() {
+                this.setMessage(Text.literal("Target FPS: " + config.adaptiveTargetFps));
+            }
+
+            @Override
+            protected void applyValue() {
+                config.adaptiveTargetFps = Math.max(45, (int) (this.value * 240));
             }
         });
         y += 24;

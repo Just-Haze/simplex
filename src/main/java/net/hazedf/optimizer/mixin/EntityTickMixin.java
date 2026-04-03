@@ -19,20 +19,21 @@ public class EntityTickMixin {
     public void onTickEntity(Entity entity, CallbackInfo ci) {
         if (OptimizerConfig.getInstance().enableLazyEntityTicking && entity instanceof MobEntity) {
             ServerWorld world = (ServerWorld) (Object) this;
+            OptimizerConfig config = OptimizerConfig.getInstance();
 
             // Check if entity is far from any player
             boolean isFar = true;
             List<ServerPlayerEntity> players = world.getPlayers();
+            double distanceSq = (double) config.lazyTickDistance * (double) config.lazyTickDistance;
             for (ServerPlayerEntity player : players) {
-                if (entity.squaredDistanceTo(player) < 1024) { // 32 blocks
+                if (entity.squaredDistanceTo(player) < distanceSq) {
                     isFar = false;
                     break;
                 }
             }
 
             if (isFar) {
-                // Skip tick every other tick
-                if (world.getTime() % 2 == 0) {
+                if (world.getTime() % config.lazyTickInterval != 0) {
                     ci.cancel();
                 }
             }

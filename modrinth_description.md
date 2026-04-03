@@ -4,6 +4,11 @@
 
 **Simplex** is a performance enhancement mod for Minecraft Fabric. It aims to improve game performance by targeting specific areas of the game engine, such as entity rendering and ticking logic.
 
+## Supported Minecraft Versions
+
+- `1.21.1`
+- `1.21.11` (latest `1.21.x` target)
+
 ## ✨ Key Features
 
 ### 🎮 Rendering Optimizations
@@ -12,18 +17,19 @@
   - _Configurable Distance_: You can set the distance at which entities stop rendering (Default: 64 blocks).
 - **Particle Culling**: Limit the rendering of particles based on distance.
   - _Configurable Distance_: Default is 32 blocks.
-- **Fast Math**: Utilizes optimized math implementation for specific game calculations.
+- **Adaptive Culling**: Auto-adjusts entity culling distance toward your configured target FPS.
 
 ### 🧠 Logic & Tick Optimizations
 
-- **Lazy Entity Ticking**: Reduces the frequency of logic updates for entities that are far away.
-- **Distant AI Optimization**: Simplifies mob AI calculations for entities that are distant from the player.
+- **Lazy Entity Ticking**: Reduces the frequency of logic updates for entities that are far away, with safer interval controls.
+- **Distant AI Optimization**: Throttles distant AI updates with configurable distance and interval.
 - **Fast XP**: Optimizes the handling of experience orbs.
 
 ### 🌐 Network & Latency
 
 - **Ping Optimizer**: Adjusts network settings which may improve connection stability for some users.
-- **Low Latency Mode**: An optional mode (disabled by default) that prioritizes input processing.
+- **Low Latency Mode**: Optional frame-sync mode (`glFinish`) with configurable interval.
+- **Performance Profiles**: `Safe`, `Balanced` (default), and `Aggressive` presets.
 
 ### 🧹 Memory Management
 
@@ -38,23 +44,31 @@ The config file is located at `.minecraft/config/simplex.json`.
 ```json
 {
   "enableEntityCulling": true,
-  "entityCullingDistance": 64,
-  "enableFastMath": true,
+  "entityCullingDistance": 72,
+  "performanceProfile": "balanced",
+  "enableFastMath": false,
   "enableGpuOptimizations": true,
   "enableParticleCulling": true,
   "particleCullingDistance": 32,
+  "enableAdaptiveCulling": true,
+  "adaptiveTargetFps": 90,
   "enableLazyEntityTicking": true,
+  "lazyTickInterval": 3,
+  "lazyTickDistance": 40,
   "enableFastXp": true,
   "enableDistantAiOptimization": true,
+  "distantAiInterval": 3,
+  "distantAiDistance": 64,
   "enablePingOptimizer": true,
   "enableLowLatency": false,
+  "lowLatencyFrameInterval": 2,
   "enableAggressiveGc": false
 }
 ```
 
 ## 📥 Installation
 
-1.  Mase sure **Fabric Loader** is installed.
+1.  Make sure **Fabric Loader** is installed.
 2.  Download the **Simplex** `.jar` file.
 3.  Place the file into your `.minecraft/mods` folder.
 4.  Launch the game.
