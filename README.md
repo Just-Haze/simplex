@@ -48,7 +48,7 @@ To build Simplex from source, you need JDK 21 installed.
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/simplex.git
+git clone https://github.com/Just-Haze/simplex
 
 # Navigate to the directory
 cd simplex
